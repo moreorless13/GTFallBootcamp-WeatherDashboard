@@ -38,7 +38,7 @@ const storeCities = () => {
 }
 
 const formSubmitHandler = (event) =>{
-    // event.preventDefault();
+    event.preventDefault();
 
     let cityName = cityInputEl.value.trim();
     if(cityName){
@@ -102,9 +102,9 @@ const getWeatherDisplayInfo = (current, daily) => {
     let currentUVIndex = current.uvi;
     let currentWeather = current.weather;
     let currentWeatherDescription = current.weather[0].description;
-    currentTemperatureEl.textContent = currentTemperature;
-    currentWindEl.textContent = currentWind;
-    currentHumidityEl.textContent = currentHumidity;
+    currentTemperatureEl.textContent = currentTemperature + ' F';
+    currentWindEl.textContent = currentWind + ' miles/hour';
+    currentHumidityEl.textContent = currentHumidity + ' %';
     currentUVIndexEl.textContent = currentUVIndex;
     currentWeatherEl.textContent = currentWeatherDescription;
 }
