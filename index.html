@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+</head>
+<body>
+    <header class="jumbotron jumbotron-fluid bg-primary text-center text-white">
+        <div class="container container-fluid">
+            <h1>Weather Dashboard</h1>
+        </div>
+    </header>
+    <main>
+        <div class="row">
+            <div class="col-sm-3 col-md-6 col-lg-4 col-xl-3">
+                <div class="card border border-dark border-2">
+                    <h3 class="card-header text-uppercase bg-primary text-white">Search: </h3>
+                    <form id="user-form" class="card-body">
+                        <input name="city" id="city" type="text" autofocus="true" class="form-input" placeholder="Enter City..." />
+                        <div><button type="submit" class="btn btn-primary btn-block mt-3">Search City</button></div>
+                    </form>
+                </div>
+                <div class="card border border-dark border-2">
+                    <h4 class="card-header bg-primary text-white">Previous Searches: </h4>
+                    <ul id="citiesList" class="list-group list-unstyled"></ul>
+                </div>
+            </div>
+            <div class="col-sm-9 col-md-6 col-lg-8 col-xl-9">
+                <div class="container container-fluid border border-dark border-2">
+                    <h2>Currently in: <span id="city-name"></span></h2>
+                    <h4 class="text-uppercase"><span id="current-weather"></span></h4>
+                    <h4>Temp: <span id="current-temperature"></span><span> F</span></h4>
+                    <h4>Wind: <span id="current-wind"></span><span> miles/hour</span></h4>
+                    <h4>Humidity: <span id="current-humidity"></span><span> %</span></h4>
+                    <h4>UV Index: <span id="current-UVIndex"></span></h4>
+                </div>
+                <div id="five-day-forecast" class="container container-fluid"></div>
+            </div>
+        </div>
+        
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
