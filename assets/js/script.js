@@ -38,7 +38,7 @@ const storeCities = () => {
 }
 
 const formSubmitHandler = (event) =>{
-    event.preventDefault();
+    // event.preventDefault();
 
     let cityName = cityInputEl.value.trim();
     if(cityName){
@@ -46,9 +46,7 @@ const formSubmitHandler = (event) =>{
         cities.push(cityName);
         cityInputEl.value = '';
 
-    } else {
-        alert('Please enter a valid city name!')
-    }
+    } 
     storeCities();
     renderCities();
 }
