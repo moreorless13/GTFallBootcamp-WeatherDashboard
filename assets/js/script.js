@@ -16,10 +16,10 @@ const renderCities = () => {
     previousSearches.innerHTML = '';
     for (let i = 0; i < cities.length; i++) {
         let storedCity = cities[i];
-        let li = document.createElement("li");
-        li.textContent = storedCity;
-        li.setAttribute('data-index', i);
-        previousSearches.appendChild(li);
+        let button = document.createElement("button");
+        button.textContent = storedCity;
+        button.setAttribute('class', "btn btn-primary mt-3");
+        previousSearches.appendChild(button);
     }
 }
 
@@ -52,6 +52,15 @@ const formSubmitHandler = (event) =>{
 }
 // button click handler
 // get city from the user input to create the api call
+function buttonHandler (event) {
+    let history = event.target.getAttribute('name');
+
+    if(history) {
+        getResultsHistory(history);
+
+        cityContainerEl.textContent = '';
+    }
+}
 
 const getCityInput = (city) => {
     let apiUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=88cbdd38232fa62b5e7c1f5c2ad6b1df';
@@ -113,4 +122,5 @@ const getWeatherDisplayInfo = (current, daily) => {
 
 
 userFormEl.addEventListener('submit', formSubmitHandler);
+previousSearches.addEventListener('click', buttonHandler);
 init();
