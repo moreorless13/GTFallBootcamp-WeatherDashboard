@@ -8,7 +8,7 @@ let currentWindEl = document.querySelector('#current-wind');
 let currentHumidityEl = document.querySelector('#current-humidity');
 let currentUVIndexEl = document.querySelector('#current-UVIndex');
 let fiveDayForecastEl = document.querySelector('#five-day-forecast');
-let apiKey = '88cbdd38232fa62b5e7c1f5c2ad6b1df'
+
 
 let cities = [];
 // form submit handler
@@ -77,8 +77,8 @@ const getCityInput = (city) => {
 }
 
 const getCityWeather = (lat, lon) => {
-    let keyUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude=minutely,hourly&units=imperial&appid=' + apiKey;
-    fetch(keyUrl)
+    let apiUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude=minutely,hourly&units=imperial&appid=88cbdd38232fa62b5e7c1f5c2ad6b1df';
+    fetch(apiUrl)
         .then(function (response) {
             if(response.ok) {
                 response.json().then(function (data) {
