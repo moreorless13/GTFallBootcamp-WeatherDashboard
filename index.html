@@ -14,35 +14,31 @@
     <header class="jumbotron jumbotron-fluid bg-primary text-center text-white">
         <div class="container container-fluid">
             <h1>Weather Dashboard</h1>
+            <p id='currentDay' class="lead"></p>
         </div>
     </header>
     <main>
         <div class="row">
-            <div class="col-sm-3 col-md-6 col-lg-4 col-xl-3">
+            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
                 <div class="card border border-dark border-2">
-                    <h3 class="card-header text-uppercase bg-primary text-white">Search: </h3>
-                    <form id="user-form" class="card-body">
+                    <h3 class="card-header bg-primary text-white">Search: </h3>
+                    <form id="searchForm" class="card-body">
                         <input name="city" id="city" type="text" autofocus="true" class="form-input" placeholder="Enter City..." />
-                        <div><button type="submit" class="btn btn-primary btn-block mt-3">Search City</button></div>
                     </form>
                 </div>
                 <div class="card border border-dark border-2 mt-3">
                     <h4 class="card-header bg-primary text-white">Previous Searches: </h4>
-                    <div id="citiesList" class="list-group">
-                        <a href="#" class="list-group-item btn btn-link"></a>
-                        <a href="#" class="list-group-item btn btn-link"></a>
-                        <a href="#" class="list-group-item btn btn-link"></a>
-                    </div>
+                    <nav id="searchHistory" class="btn-group-vertical" role="group"></nav>
                 </div>
             </div>
-            <div class="col-sm-9 col-md-6 col-lg-8 col-xl-9">
-                <div class="container container-fluid border border-dark border-2">
-                    <h2>Currently in: <span id="city-name"></span></h2>
-                    <h4 class="text-uppercase"><span id="current-weather"></span></h4>
-                    <h4>Temp: <span id="current-temperature"></span></h4>
-                    <h4>Wind: <span id="current-wind"></span></h4>
-                    <h4>Humidity: <span id="current-humidity"></span></h4>
-                    <h4>UV Index: <span id="current-UVIndex"></span></h4>
+            <div class="col-sm-9 col-md-9 col-lg-9 col-xl-9">
+                <div id="current-Weather" class="container container-fluid border border-dark border-2">
+                    <h3>Currently in: <span id="city-name"></span></h3>
+                    <h4 id="currentWeather"></h4>
+                    <h5 id="currentTemp"></h5>
+                    <h5 id="currentWind"></h5>
+                    <h5 id="currentHumidity"></h5>
+                    <h5 id="currentUV"></h5>
                 </div>
                 <div id="five-day-forecast" class="container container-fluid"></div>
             </div>

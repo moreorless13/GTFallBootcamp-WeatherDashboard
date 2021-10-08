@@ -1,126 +1,124 @@
-let userFormEl = document.querySelector('#user-form');
-let previousSearches = document.querySelector('#citiesList');
+let searchFormEl = document.querySelector('#searchForm');
+let searchHistoryEl = document.querySelector('#searchHistory');
 let cityInputEl = document.querySelector('#city');
-let currentWeatherEl = document.querySelector('#current-weather');
-let cityNameEl = document.querySelector('#city-name');
-let currentTemperatureEl = document.querySelector('#current-temperature');
-let currentWindEl = document.querySelector('#current-wind');
-let currentHumidityEl = document.querySelector('#current-humidity');
-let currentUVIndexEl = document.querySelector('#current-UVIndex');
+let currentWeatherEl = document.querySelector('#currentWeather');
+let currentTempEl = document.querySelector('#currentTemp');
+let currentWindEl = document.querySelector('#currentWind');
+let currentHumidityEl = document.querySelector('#currentHumidity');
+let currentUVEl = document.querySelector('#currentUV');
+let cityDisplayEl = document.querySelector('#city-name')
 let fiveDayForecastEl = document.querySelector('#five-day-forecast');
 
+// render search history 
+//form submission handler
+//search history button event handler
+// store search history to localstorage
+// fetches 
+// render current weather display
+// render daily weather display 
 
 let cities = [];
-// form submit handler
-const renderCities = () => {
-    previousSearches.innerHTML = '';
-    for (let i = 0; i < cities.length; i++) {
-        let storedCity = cities[i];
+
+const renderSearchHistory = () => {
+    searchHistoryEl.innerHTML = '';
+    let numberOfCities = cities.length;
+    for (let i = 0; i < numberOfCities; i++) {
+        let city = cities[i];
+
         let button = document.createElement("button");
-        button.textContent = storedCity;
-        button.setAttribute('class', "btn btn-primary mt-3");
-        previousSearches.appendChild(button);
+        button.classList.add('btn', 'btn-primary' + [i]);
+        button.setAttribute('id', 'searchHistoryButtons');
+        button.textContent = city;
+        searchHistoryEl.appendChild(button);
+        button.addEventListener('click', callHistory);
+    };
+};
+
+const callData = (event) => {
+    event.preventDefault();
+
+    let city = cityInputEl.value;
+    if(city === ''){
+        console.error("Please enter a city name")
+        return;
+    } else {
+        fetchApi(city);
+        cities.push(city);
+        cityInputEl.value = '';
+        storeCities();
+        renderSearchHistory();
     }
+    
+};
+
+const callHistory = (event) => {
+    event.preventDefault();
+    console.log('button clicked');
+    city = event.target.textContent;
+    console.log(city);
+    fetchApi(city);
+}
+
+const storeCities = () => {
+    localStorage.setItem("cities", JSON.stringify(cities));
 }
 
 const init = () => {
+    console.log('Ignition...');
+
     let storedCities = JSON.parse(localStorage.getItem("cities"));
 
     if(storedCities !== null) {
         cities = storedCities;
     }
 
-    renderCities();
-    formSubmitHandler();
-}
-const storeCities = () => {
-    localStorage.setItem("cities", JSON.stringify(cities));
+    renderSearchHistory();
 }
 
-const formSubmitHandler = (event) =>{
-    event.preventDefault();
-
-    let cityName = cityInputEl.value.trim();
-    if(cityName){
-        getCityInput(cityName);
-        cities.push(cityName);
-        cityInputEl.value = '';
-
-    } 
-    storeCities();
-    renderCities();
-}
 // button click handler
 // get city from the user input to create the api call
-function buttonHandler (event) {
-    let history = event.target.getAttribute('name');
 
-    if(history) {
-        getResultsHistory(history);
-
-        cityContainerEl.textContent = '';
-    }
-}
-
-const getCityInput = (city) => {
+const fetchApi = (city) => {
+    console.log('so fetch...');
     let apiUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=88cbdd38232fa62b5e7c1f5c2ad6b1df';
     fetch(apiUrl)
-        .then(function(response) {
-            if(response.ok) {
-                console.log(response);
-                response.json().then(function (data) {
-                    console.log(data);
-                    console.log(data[0].name);
-                    console.log(data[0].lat);
-                    console.log(data[0].lon);
-                    getDisplayName(data[0].name);
-                    getCityWeather(data[0].lat, data[0].lon);
-                });
-            } else {
-                alert('Please enter a valid city: ' + response.statusText)
-            }
-        })
-        .catch(function (error) {
-            alert('Unable to find City');
+        .then(res => res.json())
+        .then(data => {
+            let name = data[0].name;
+            let state = data[0].state;
+            let lat = data[0].lat;
+            let lon = data[0].lon;
+            cityWeather(name, state, lat, lon);
         })
 }
 
-const getCityWeather = (lat, lon) => {
+const cityWeather = (name, state, lat, lon) => {
+    cityDisplayEl.textContent = name + ', ' + state;
+    console.log('Ignite!');
     let apiUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude=minutely,hourly&units=imperial&appid=88cbdd38232fa62b5e7c1f5c2ad6b1df';
     fetch(apiUrl)
-        .then(function (response) {
-            if(response.ok) {
-                response.json().then(function (data) {
-                    console.log(data);
-                    console.log(data.current);
-                    getWeatherDisplayInfo(data.current, data.daily)
-                })
-            }
+        .then(res => res.json())
+        .then(data => {
+            getCurrentWeather(data.current);
+            getFiveDay(data.daily);
         })
 }
 
-const getDisplayName = (name) => {
-    let cityNameDisplay = name;
-    cityNameEl.textContent = cityNameDisplay; 
-}
-
-const getWeatherDisplayInfo = (current, daily) => {
+const getCurrentWeather = (current) => {
     let currentTemperature = current.temp;
     let currentWind = current.wind_speed;
     let currentHumidity = current.humidity;
     let currentUVIndex = current.uvi;
-    let currentWeather = current.weather;
     let currentWeatherDescription = current.weather[0].description;
-    currentTemperatureEl.textContent = currentTemperature + ' F';
-    currentWindEl.textContent = currentWind + ' miles/hour';
-    currentHumidityEl.textContent = currentHumidity + ' %';
-    currentUVIndexEl.textContent = currentUVIndex;
-    currentWeatherEl.textContent = currentWeatherDescription;
+    currentTempEl.textContent = 'Temp: ' + currentTemperature + ' F';
+    currentWindEl.textContent = 'Wind: ' + currentWind + ' miles/hour';
+    currentHumidityEl.textContent = 'Humidity: ' + currentHumidity + ' %';
+    currentUVEl.textContent = 'UV Index: ' + currentUVIndex;
+    currentWeatherEl.innerHTML = currentWeatherDescription;
 }
 
 
 
 
-userFormEl.addEventListener('submit', formSubmitHandler);
-previousSearches.addEventListener('click', buttonHandler);
+searchFormEl.addEventListener('submit', callData);
 init();
