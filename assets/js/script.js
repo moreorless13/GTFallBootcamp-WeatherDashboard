@@ -111,7 +111,44 @@ const getCurrentWeather = (current) => {
 }
 
 const getFiveDay = (daily) => {
-    
+    fiveDayForecastEl.innerHTML = '';
+    for (let i = 0; i < 5; i++){
+        let day = daily[i];
+        let dayWeatherDescription = day.weather[0].description;
+        let dayTemp = day.temp.day;
+        let dayWind = day.wind_speed;
+        let dayHumidity = day.humidity;
+        let dayUVIndex = day.uvi;
+
+        let resultCard = document.createElement('div');
+        resultCard.classList.add('card', 'border', 'border-dark');
+
+        let resultBody = document.createElement('div');
+        resultBody.classList.add('card-body', 'border', 'border-dark');
+        resultCard.append(resultBody);
+
+        let h4El = document.createElement('h4');
+        h4El.textContent = dayWeatherDescription.toUpperCase();
+
+        let h4El1 = document.createElement('h4');
+        h4El1.textContent = 'Temp: ' + dayTemp + ' F';
+
+        let h4El2 = document.createElement('h4');
+        h4El2.textContent = 'Wind: ' + dayWind + ' mph';
+
+        let h4El3 = document.createElement('h4');
+        h4El3.textContent = 'Humidity: ' + dayHumidity + ' %';
+
+        let h4El4 = document.createElement('h4');
+        h4El4.textContent = 'UV Index: ' + dayUVIndex;
+
+        resultBody.append(h4El);
+        resultBody.append(h4El1);
+        resultBody.append(h4El2);
+        resultBody.append(h4El3);
+        resultBody.append(h4El4);
+        fiveDayForecastEl.append(resultCard);
+    }
 };
 
 
