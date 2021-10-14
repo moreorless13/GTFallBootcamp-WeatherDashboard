@@ -120,7 +120,7 @@ const getCurrentWeather = (current) => {
     let currentWind = current.wind_speed;
     let currentHumidity = current.humidity;
     let currentUVIndex = current.uvi;
-    let currentWeatherDescription = current.weather[0].description;
+    let currentWeatherDescription = current.weather[0].description.toUpperCase();
     currentTempEl.textContent = 'Temp: ' + currentTemperature + ' F';
     currentWindEl.textContent = 'Wind: ' + currentWind + ' miles/hour';
     currentHumidityEl.textContent = 'Humidity: ' + currentHumidity + ' %';
