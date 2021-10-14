@@ -9,13 +9,6 @@ let currentUVEl = document.querySelector('#currentUV');
 let cityDisplayEl = document.querySelector('#city-name')
 let fiveDayForecastEl = document.querySelector('#five-day-forecast');
 
-// render search history 
-//form submission handler
-//search history button event handler
-// store search history to localstorage
-// fetches 
-// render current weather display
-// render daily weather display 
 
 let cities = [];
 
@@ -116,6 +109,10 @@ const getCurrentWeather = (current) => {
     currentUVEl.textContent = 'UV Index: ' + currentUVIndex;
     currentWeatherEl.innerHTML = currentWeatherDescription;
 }
+
+const getFiveDay = (daily) => {
+    
+};
 
 
 
