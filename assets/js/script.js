@@ -120,12 +120,12 @@ const getCurrentWeather = (current) => {
     let currentWind = current.wind_speed;
     let currentHumidity = current.humidity;
     let currentUVIndex = current.uvi;
-    let currentWeatherDescription = current.weather[0].description.toUpperCase();
+    let currentWeatherDescription = current.weather[0].description;
     currentTempEl.textContent = 'Temp: ' + currentTemperature + ' F';
     currentWindEl.textContent = 'Wind: ' + currentWind + ' miles/hour';
     currentHumidityEl.textContent = 'Humidity: ' + currentHumidity + ' %';
     currentUVEl.textContent = 'UV Index: ' + currentUVIndex;
-    currentWeatherEl.innerHTML = currentWeatherDescription;
+    currentWeatherEl.innerHTML = currentWeatherDescription.toUpperCase();
 }
 
 const getFiveDay = (daily) => {
