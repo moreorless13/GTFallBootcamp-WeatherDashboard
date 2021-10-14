@@ -70,23 +70,41 @@ const init = () => {
 
 // button click handler
 // get city from the user input to create the api call
-
 const fetchApi = (city) => {
     console.log('so fetch...');
-    let apiUrl = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=88cbdd38232fa62b5e7c1f5c2ad6b1df';
+    let apiUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&limit=1&appid=88cbdd38232fa62b5e7c1f5c2ad6b1df';
     fetch(apiUrl)
         .then(res => res.json())
         .then(data => {
-            let name = data[0].name;
-            let state = data[0].state;
-            let lat = data[0].lat;
-            let lon = data[0].lon;
-            cityWeather(name, state, lat, lon);
+            console.log(data)
+            let name = data.name;
+            // let state = data[0].state;
+            let lat = data.coord.lat;
+            let lon = data.coord.lon;
+            // let lon = data[0].lon;
+            
+            console.log(name)
+            console.log(lat)
+            console.log(lon)
+            cityWeather(name, lat, lon);
         })
 }
+// const fetchApi = (city) => {
+//     console.log('so fetch...');
+//     let apiUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=88cbdd38232fa62b5e7c1f5c2ad6b1df';
+//     fetch(apiUrl)
+//         .then(res => res.json())
+//         .then(data => {
+//             let name = data[0].name;
+//             let state = data[0].state;
+//             let lat = data[0].lat;
+//             let lon = data[0].lon;
+//             cityWeather(name, state, lat, lon);
+//         })
+// }
 
-const cityWeather = (name, state, lat, lon) => {
-    cityDisplayEl.textContent = name + ', ' + state;
+const cityWeather = (name, lat, lon) => {
+    cityDisplayEl.textContent = name;
     console.log('Ignite!');
     let apiUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude=minutely,hourly&units=imperial&appid=88cbdd38232fa62b5e7c1f5c2ad6b1df';
     fetch(apiUrl)
