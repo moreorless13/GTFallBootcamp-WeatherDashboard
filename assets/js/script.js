@@ -73,7 +73,7 @@ const init = () => {
 
 const fetchApi = (city) => {
     console.log('so fetch...');
-    let apiUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=88cbdd38232fa62b5e7c1f5c2ad6b1df';
+    let apiUrl = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=88cbdd38232fa62b5e7c1f5c2ad6b1df';
     fetch(apiUrl)
         .then(res => res.json())
         .then(data => {
