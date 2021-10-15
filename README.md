@@ -20,4 +20,3 @@ https://moreorless13.github.io/GTFallBootcamp-WeatherDashboard/
 
 * GitHub: https://github.com/moreorless13
 
-* Email: 
