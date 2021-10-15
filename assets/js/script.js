@@ -121,12 +121,23 @@ const getCurrentWeather = (current) => {
     let currentWind = current.wind_speed;
     let currentHumidity = current.humidity;
     let currentUVIndex = current.uvi;
+    let currentWeatherIcon = current.weather[0].icon;
     let currentWeatherDescription = current.weather[0].description;
+    let iconurl = 'http://openweathermap.org/img/w/' + currentWeatherIcon + '.png';
     currentTempEl.textContent = 'Temp: ' + currentTemperature + ' F';
     currentWindEl.textContent = 'Wind: ' + currentWind + ' miles/hour';
     currentHumidityEl.textContent = 'Humidity: ' + currentHumidity + ' %';
     currentUVEl.textContent = 'UV Index: ' + currentUVIndex;
+
+    console.log(iconurl)
+    
+    let img = document.createElement('img');
+    img.setAttribute('id', 'wicon');
+    img.setAttribute('src', iconurl);
+    img.setAttribute('alt', 'Weather Icon');
+
     currentWeatherEl.textContent = currentWeatherDescription.toUpperCase();
+    currentWeatherEl.append(img);
 }
 
 const getFiveDay = (daily) => {
@@ -139,6 +150,8 @@ const getFiveDay = (daily) => {
         let dayWind = day.wind_speed;
         let dayHumidity = day.humidity;
         let dayUVIndex = day.uvi;
+        let dayWeatherIcon = day.weather[0].icon;
+        let iconurl = 'http://openweathermap.org/img/w/' + dayWeatherIcon + '.png';
 
         let resultCard = document.createElement('div');
         resultCard.classList.add('card', 'border', 'border-dark');
@@ -156,6 +169,12 @@ const getFiveDay = (daily) => {
 
         let h5El = document.createElement('h5');
         h5El.textContent = dayWeatherDescription.toUpperCase();
+
+        let img = document.createElement('img');
+        img.setAttribute('id', 'wicon');
+        img.setAttribute('src', iconurl);
+        img.setAttribute('alt', 'Weather Icon');
+        h5El.append(img);
 
         let h5El1 = document.createElement('h5');
         h5El1.textContent = 'Temp: ' + dayTemp + ' F';
