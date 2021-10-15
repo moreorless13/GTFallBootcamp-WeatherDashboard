@@ -111,6 +111,7 @@ const cityWeather = (name, lat, lon) => {
         .then(res => res.json())
         .then(data => {
             getCurrentWeather(data.current);
+            console.log(data.daily);
             getFiveDay(data.daily);
         })
 }
@@ -132,6 +133,7 @@ const getFiveDay = (daily) => {
     fiveDayForecastEl.innerHTML = '';
     for (let i = 0; i < 5; i++){
         let day = daily[i];
+        let dayTime = moment.unix(day.dt);
         let dayWeatherDescription = day.weather[0].description;
         let dayTemp = day.temp.day;
         let dayWind = day.wind_speed;
@@ -141,30 +143,38 @@ const getFiveDay = (daily) => {
         let resultCard = document.createElement('div');
         resultCard.classList.add('card', 'border', 'border-dark');
 
+        let resultHeader = document.createElement('div');
+        resultHeader.classList.add('card-header', 'border', 'border-dark');
+        resultCard.append(resultHeader);
+
         let resultBody = document.createElement('div');
         resultBody.classList.add('card-body', 'border', 'border-dark');
         resultCard.append(resultBody);
 
-        let h4El = document.createElement('h4');
-        h4El.textContent = dayWeatherDescription.toUpperCase();
+        let headEl = document.createElement('h4');
+        headEl.textContent = dayTime.format('dddd, MMMM Do');
 
-        let h4El1 = document.createElement('h4');
-        h4El1.textContent = 'Temp: ' + dayTemp + ' F';
+        let h5El = document.createElement('h5');
+        h5El.textContent = dayWeatherDescription.toUpperCase();
 
-        let h4El2 = document.createElement('h4');
-        h4El2.textContent = 'Wind: ' + dayWind + ' mph';
+        let h5El1 = document.createElement('h5');
+        h5El1.textContent = 'Temp: ' + dayTemp + ' F';
 
-        let h4El3 = document.createElement('h4');
-        h4El3.textContent = 'Humidity: ' + dayHumidity + ' %';
+        let h5El2 = document.createElement('h5');
+        h5El2.textContent = 'Wind: ' + dayWind + ' mph';
 
-        let h4El4 = document.createElement('h4');
-        h4El4.textContent = 'UV Index: ' + dayUVIndex;
+        let h5El3 = document.createElement('h5');
+        h5El3.textContent = 'Humidity: ' + dayHumidity + ' %';
 
-        resultBody.append(h4El);
-        resultBody.append(h4El1);
-        resultBody.append(h4El2);
-        resultBody.append(h4El3);
-        resultBody.append(h4El4);
+        let h5El4 = document.createElement('h5');
+        h5El4.textContent = 'UV Index: ' + dayUVIndex;
+
+        resultHeader.append(headEl)
+        resultBody.append(h5El);
+        resultBody.append(h5El1);
+        resultBody.append(h5El2);
+        resultBody.append(h5El3);
+        resultBody.append(h5El4);
         fiveDayForecastEl.append(resultCard);
     }
 };
