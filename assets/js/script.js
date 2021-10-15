@@ -21,8 +21,6 @@ const renderSearchHistory = () => {
         let button = document.createElement("button");
         button.classList.add('btn', 'btn-primary' + [i],);
         button.setAttribute('id', 'searchHistoryButtons');
-        button.setAttribute('data-bs-toggle', 'tooltip');
-        button.setAttribute('title', `Click here for ${city}`);
         button.textContent = city;
         searchHistoryEl.appendChild(button);
         button.addEventListener('click', callHistory);
