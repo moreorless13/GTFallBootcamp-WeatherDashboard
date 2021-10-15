@@ -78,10 +78,8 @@ const fetchApi = (city) => {
         .then(data => {
             console.log(data)
             let name = data.name;
-            // let state = data[0].state;
             let lat = data.coord.lat;
             let lon = data.coord.lon;
-            // let lon = data[0].lon;
             
             console.log(name)
             console.log(lat)
@@ -89,19 +87,6 @@ const fetchApi = (city) => {
             cityWeather(name, lat, lon);
         })
 }
-// const fetchApi = (city) => {
-//     console.log('so fetch...');
-//     let apiUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=88cbdd38232fa62b5e7c1f5c2ad6b1df';
-//     fetch(apiUrl)
-//         .then(res => res.json())
-//         .then(data => {
-//             let name = data[0].name;
-//             let state = data[0].state;
-//             let lat = data[0].lat;
-//             let lon = data[0].lon;
-//             cityWeather(name, state, lat, lon);
-//         })
-// }
 
 const cityWeather = (name, lat, lon) => {
     cityDisplayEl.textContent = name;
@@ -124,7 +109,7 @@ const getCurrentWeather = (current) => {
     let currentWeatherIcon = current.weather[0].icon;
     let currentWeatherDescription = current.weather[0].description;
     let iconurl = 'http://openweathermap.org/img/w/' + currentWeatherIcon + '.png';
-    currentTempEl.textContent = 'Temp: ' + currentTemperature + ' F';
+    currentTempEl.textContent = 'Temp: ' + currentTemperature + ' °F';
     currentWindEl.textContent = 'Wind: ' + currentWind + ' miles/hour';
     currentHumidityEl.textContent = 'Humidity: ' + currentHumidity + ' %';
     currentUVEl.textContent = 'UV Index: ' + currentUVIndex;
@@ -177,7 +162,7 @@ const getFiveDay = (daily) => {
         h5El.append(img);
 
         let h5El1 = document.createElement('h5');
-        h5El1.textContent = 'Temp: ' + dayTemp + ' F';
+        h5El1.textContent = 'Temp: ' + dayTemp + ' °F';
 
         let h5El2 = document.createElement('h5');
         h5El2.textContent = 'Wind: ' + dayWind + ' mph';
@@ -186,7 +171,9 @@ const getFiveDay = (daily) => {
         h5El3.textContent = 'Humidity: ' + dayHumidity + ' %';
 
         let h5El4 = document.createElement('h5');
-        h5El4.textContent = 'UV Index: ' + dayUVIndex;
+
+        h5El4.textContent = 'UV Index: ';
+        h5El4.append(dayUVIndex);
 
         resultHeader.append(headEl)
         resultBody.append(h5El);
@@ -197,8 +184,6 @@ const getFiveDay = (daily) => {
         fiveDayForecastEl.append(resultCard);
     }
 };
-
-
 
 
 searchFormEl.addEventListener('submit', callData);
